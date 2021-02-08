@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import {REGISTER_URL} from "../../config/Config";
 // ------ TO DO --------------
 // 1) Implement validation for the fields
 
@@ -122,7 +123,7 @@ function Register(props) {
   );
 
   function service_register(username, password, email, cmsgs) {
-    const register_url = "http://localhost:8000/auth/users/";
+    const register_url = REGISTER_URL;
     console.log(username + password + email);
     let user = {
       username,
@@ -132,8 +133,7 @@ function Register(props) {
     axios
       .post(register_url, user)
       .then((res) => {
-        console.log(res);
-        console.log(res.data);
+        
         var keys = Object.keys(res.data);
         var msgs = [];
         cmsgs([

@@ -1,6 +1,7 @@
 import { useHistory, Redirect } from "react-router-dom";
 import axios from "axios";
-
+import { LOGOUT_URL, USER_URL } from "../config/Config";
+import API from './Api';
 // ------------- SAMPLE -----------------
 
 // axios
@@ -37,18 +38,13 @@ export function LoggedIn() {
 }
 
 export async function WhichUser(callback) {
-  const user_url = "http://127.0.0.1:8000/auth/users/me/";
-  var token = window.localStorage.getItem("AuthToken");
+  const user_url = USER_URL;
+  
   let history = useHistory();
-  let config = {
-    headers: {
-      Authorization: "Token " + token,
-    },
-  };
-  console.log("hello");
+  
 
-  axios
-    .get(user_url, config)
+  API
+    .get(user_url)
     .then((res) => {
       //console.log(res.data);
       callback(res.data);
@@ -59,7 +55,6 @@ export async function WhichUser(callback) {
         console.log(err.response.data);
         console.log(err.response.status);
         console.log(err.response.headers);
-        if (err.response.status == 401) history.push("/Logout");
       } else if (err.request) {
         alert(
           "Unable to make the request: Likely issue is your internet connection"
@@ -76,7 +71,7 @@ export const LogOut = (props) => {
   let history = useHistory();
   var token = window.localStorage.getItem("AuthToken");
   if (!(token === null)) {
-    const logout_url = "http://localhost:8000/auth/token/logout/";
+    const logout_url = LOGOUT_URL;
     let config = {
       headers: {
         Authorization: "Token " + token,

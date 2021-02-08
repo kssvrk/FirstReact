@@ -3,18 +3,30 @@ import { WhichUser } from "../../services/AuthToken";
 
 const Home = () => {
   const [user, setUser] = useState("");
-  let edit = false;
-  let callback = (data) => {
-    setUser(data.username);
-  };
-  if (user === "") WhichUser(setUser);
+  if(user===""){WhichUser(setUser)}
+  //console.log(user);
+  if (user === "") 
+  { 
+    return (
+      <div class="spinner-border text-light" role="status">
+        
+      </div>
+    )
+    
+  }
+  else{
+    
+    return (
+      <div>
+        <h1>Welcome to Aikops {user.email}</h1>
+      </div>
+    );
+  }
+
+  
 
   //console.log(user);
-  return (
-    <div>
-      <h1>Welcome to Aikops {user.email}</h1>
-    </div>
-  );
+  
 };
 
 export default Home;

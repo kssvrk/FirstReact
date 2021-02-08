@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
-
+import {LOGIN_URL} from "../../config/Config";
+//import API from '../../services/Api';
 function Login(props) {
   const { setLogin } = props;
   const history = useHistory();
@@ -106,7 +107,7 @@ function Login(props) {
   );
 
   function service_login(username, password) {
-    const login_url = "http://localhost:8000/auth/token/login/";
+    const login_url = LOGIN_URL; //"http://localhost:8000//token/login/";
 
     let user = {
       username,
@@ -115,8 +116,7 @@ function Login(props) {
     axios
       .post(login_url, user)
       .then((res) => {
-        console.log(res);
-        console.log(res.data);
+        
         //store the auth token in storage
         var keys = Object.keys(res.data);
         var msgs = [];
